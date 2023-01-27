@@ -1,46 +1,16 @@
-// Business Logic for AddressBook ---------
-function AddressBook() {
-  this.contacts = {};
-  this.currentId = 0;
+function handleTriangleForm() {
+  event.preventDefault();
+  document.querySelector('#response').innerText = null;
+  const length2 = parseInt(document.querySelector('#length2').value);
+  const length1 = parseInt(document.querySelector('#length1').value);
+  const length3 = parseInt(document.querySelector('#length3').value);
+  const triangle = new Triangle(length1, length2, length3);
+  const response = triangle.checkType();
+  const pTag = document.createElement("p");
+  pTag.append(response);
+  document.querySelector('#response').append(pTag);
 }
 
-AddressBook.prototype.addContact = function(contact) {
-  contact.id = this.assignId();
-  this.contacts[contact.id] = contact;
-};
-
-AddressBook.prototype.assignId = function() {
-  this.currentId = this.currentId + 1;
-  return this.currentId;
-};
-
-AddressBook.prototype.findContact = function(id) {
-  if (this.contacts[id] !== undefined) {
-    return this.contacts[id];
-  }
-  return false;
-};
-
-AddressBook.prototype.deleteContact = function(id) {
-  if (this.contacts[id] === undefined) {
-    return false;
-  }
-  delete this.contacts[id];
-  return true;
-};
-
-
-
-Contact.prototype.fullName = function() {
-  return this.firstName + " " + this.lastName;
-}
-
-
-// Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber) {
-  
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.phoneNumber = phoneNumber;
-
-}
+window.addEventListener("load", function() {
+  document.querySelector("#triangle-checker-form").addEventListener("submit", handleTriangleForm);
+});
